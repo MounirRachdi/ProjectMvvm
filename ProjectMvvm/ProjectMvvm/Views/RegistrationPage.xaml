@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMvvm.Views.RegistrationPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
+
+           
+
+
+            <Entry Placeholder="Login" Text="{Binding Login}"></Entry>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"></Entry>
+            <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding Password2}"></Entry>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Save Password"></Label>
+
+            </StackLayout>
+            <Button Text="Sign Up" BackgroundColor="#088da5" Command="{Binding SaveCommand}"></Button>
+            <Label Text="Already have account? Sign In" TextColor="Blue"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

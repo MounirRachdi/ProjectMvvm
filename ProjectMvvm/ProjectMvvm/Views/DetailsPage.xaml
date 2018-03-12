@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMvvm.Views.DetailsPage"
+             xmlns:ViewModel="clr-namespace:ProjectMvvm.ViewModels"
+            >
+    <ContentPage.BindingContext>
+        <ViewModel:DetailViewModel></ViewModel:DetailViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Add Employee"
+                     Command="{Binding AddEmployeeCommand}" Priority="0"
+                     
+                     Icon="ic_add.png" Order="Primary" />
+
+        <ToolbarItem Text="Edit Employee"
+                     Icon="ic_edit.png" Priority="1"
+                      Order="Primary"  />
+
+        <ToolbarItem Text="Delete Employee"
+                     Icon="ic_delete.png" Priority="2"
+                      Order="Secondary" />
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+
+            <StackLayout BackgroundColor="White">
+
+                <SearchBar x:Name="MainSearchBar"  SearchCommand="{Binding SearchEmpCommand}" Text="{Binding SearchValue}"    
+                    Placeholder="Search employee here"/>
+            </StackLayout>
+            <ListView x:Name="listview1" ItemsSource="{Binding EmployeeList}" RefreshCommand="{Binding LoadItemsCommand }" IsPullToRefreshEnabled="True"  
+ HasUnevenRows="True" ItemTapped="listview1_ItemTapped" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" >
+                                <!-- <Image x:Name="image1" Aspect="AspectFill"  HeightRequest ="20" WidthRequest="20" Source="{Binding ImageUrl}" />-->
+
+                                <Label Text="{Binding Name}"  />
+                                <Label Text="{Binding Department}"  />
+                                <StackLayout IsVisible="{Binding IsVisible} "  
+                                     Orientation="Horizontal"  Margin="0,0,80,0"
+                                     >
+
+                                    <Button Text="Details" Clicked="Detail_Clicked"  
+                                     
+                                      WidthRequest="110"
+                                    FontSize="15" 
+                                    BackgroundColor="Chocolate"  
+                                    TextColor="White"/>
+                                    <Button Text="Edit" Clicked="Edit_Clicked" 
+                                    WidthRequest="110"
+                                    FontSize="15" 
+                                      
+                                    BackgroundColor="CornflowerBlue"  
+                                    TextColor="DarkBlue"/>
+                                    <Button Text="Remove" Clicked="Remove_Clicked"
+                                      WidthRequest="110"
+                                    FontSize="15" 
+                                     BackgroundColor="LightCoral"  
+                                    TextColor="Maroon" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
