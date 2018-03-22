@@ -9,10 +9,11 @@ using Xamarin.Forms;
 
 namespace ProjectMvvm.ViewModels
 {
-   public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
+       
         public IDataStore<Employee> DataStore => DependencyService.Get<IDataStore<Employee>>() ?? new DataStore<Employee>("DataBase.db3");
-        public IDataStore<User> DataStore1 => DependencyService.Get<IDataStore<User>>() ?? new DataStore<User>("DataBase.db3");
+        public IDataStore<User> DataStore1 => DependencyService.Get<IDataStore<User>>() ?? new DataStore<User>("DataBase.db3"); 
         public INavigation _nav;
         public ContentPage CurrentPage { get; set; }
         

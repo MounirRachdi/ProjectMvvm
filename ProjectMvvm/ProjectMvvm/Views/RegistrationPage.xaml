@@ -5,9 +5,6 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
 
-           
-
-
             <Entry Placeholder="Login" Text="{Binding Login}"></Entry>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"></Entry>
             <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding Password2}"></Entry>
@@ -17,7 +14,7 @@
 
             </StackLayout>
             <Button Text="Sign Up" BackgroundColor="#088da5" Command="{Binding SaveCommand}"></Button>
-            <Label Text="Already have account? Sign In" TextColor="Blue"></Label>
+            <Label Text="{Binding AlertText }" TextColor="Red"></Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

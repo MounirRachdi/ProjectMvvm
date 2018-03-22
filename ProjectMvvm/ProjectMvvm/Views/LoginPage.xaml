@@ -10,13 +10,13 @@
             <Frame BackgroundColor="#BF043055" HasShadow="False" >
                 <StackLayout Orientation="Vertical" Spacing="40">
                     <Entry x:Name="Login" Text="{Binding Login }" Placeholder="Login"   
-                           PlaceholderColor="White" HeightRequest="70"   
+                           PlaceholderColor="White" HeightRequest="70"  
                             
-                           TextColor="White"/>
+                           TextColor="Blue"/>
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="70"   
                            IsPassword="True"  
-                           TextColor="White"/>
+                           TextColor="Blue"/>
                     <Label Text="{Binding TestLabel}" TextColor="Red"/>
                 </StackLayout>
             </Frame>

@@ -16,10 +16,9 @@ namespace ProjectMvvm.ViewModels
    public class LoginViewModel : BaseViewModel
     {
         public Action DisplayInvalidLoginPrompt;
-        public INavigation GotoDetailPage;
-        public ObservableCollection<User> users { get; set; }
-        public User user;
-      
+
+        private readonly IDependencyService _dependencyService;
+
         private string _login;
         public string Login
         {
@@ -29,8 +28,8 @@ namespace ProjectMvvm.ViewModels
             }
             set
             {
-                _login = value;
-                OnPropertyChanged();
+                
+                SetProperty(ref _login, value);
             }
         }
         private string password;
@@ -42,69 +41,41 @@ namespace ProjectMvvm.ViewModels
             }
             set
             {
-                password = value;
-                OnPropertyChanged();
+                SetProperty(ref password, value);
             }
         }
         public string testlabel;
+     //   private DependencyServiceWrapper dependencyServiceWrapper;
+
         public string TestLabel
         {
             get { return testlabel; }
             set
             {
-                testlabel = value;
-                OnPropertyChanged();
+                SetProperty(ref testlabel, value);
             }
         }
 
-        async void ExecuteLoadItemsCommand()
+        
+        public LoginViewModel(): this(new DependencyServiceWrapper())
         {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                users = new ObservableCollection<User>();
-                users.Clear();
-                var u = await DataStore1.GetAllAsync();
-                foreach (var item in u)
-                {
-                    users.Add(item);
-
-                }
-                int nb = users.Count;
-               
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-        public LoginViewModel()
-        {
-         //   Title = "login";
-            //ExecuteLoadItemsCommand();
-                
-
-           // CurrentPage = DependencyInject<LoginPage>.Get();
-           // OpenPage();
+         
         }
         public LoginViewModel(INavigation nav)
         {
-           /// Title = "login";
+           
             _nav = nav;
             CurrentPage = DependencyInject<LoginPage>.Get();
-          //  ExecuteLoadItemsCommand();
+         
 
 
         }
-       
+
+        public LoginViewModel(IDependencyService dependencyService)
+        {
+            _dependencyService=dependencyService;
+        }
+
         public ICommand RegistartionCommand => new Command(() =>
         {
 
@@ -114,26 +85,29 @@ namespace ProjectMvvm.ViewModels
 
 
         });
-        public ICommand SubmitCommand => new Command(async () =>
+        public ICommand SubmitCommand //new Command(async () =>
         {
-            users = new ObservableCollection<User>();
-            users.Clear();
-            var u = await DataStore1.GetAllAsync(x => x.Login.Equals(Login) && x.Password.Equals(Password));
-         // u.ToList());
-            if(u.Count()>0)
+
+            get
             {
+                return new Command(async () =>
+                { 
+                var u = await DataStore1.GetAllAsync(x => x.Login.Equals(Login) && x.Password.Equals(Password));
 
-                var ss = DependencyService.Get<DetailViewModel>() ?? (new DetailViewModel(_nav));
-            }
-            else
-            { 
-                TestLabel = "Invalid Login !!, try again";
-            }
+                if (u.Count() > 0)
+                {
 
-         
-    
-        });
+                    var ss = DependencyService.Get<DetailViewModel>() ?? (new DetailViewModel(_nav));
+                }
+                else
+                {
+                    await CurrentPage.DisplayAlert("Error", "Invalid Login, try again", "OK");
+                }
 
+
+
+            }); }
+}
         
            
         

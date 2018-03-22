@@ -11,8 +11,7 @@ namespace ProjectMvvm.ViewModels
 {
     public class AddEmployeeViewModel : DetailViewModel
     {
-        //public ObservableCollection<Employee> Employees { get; set; }
-        //public Employee emp;
+      
 
        
         public int id;
@@ -21,8 +20,7 @@ namespace ProjectMvvm.ViewModels
             get { return id; }
             set
             {
-                id = value;
-                OnPropertyChanged();
+                SetProperty(ref id, value);
             }
         }
         public string name;
@@ -31,8 +29,9 @@ namespace ProjectMvvm.ViewModels
             get { return name; }
             set
             {
-                name = value;
-                OnPropertyChanged();
+                // name = value;
+                //OnPropertyChanged();
+                SetProperty(ref name, value);
             }
         }
         public string departement;
@@ -41,8 +40,7 @@ namespace ProjectMvvm.ViewModels
             get { return departement; }
             set
             {
-                departement= value;
-                OnPropertyChanged();
+                SetProperty(ref departement, value);
             }
         }
         public ICommand SaveCommand => new Command(async () =>
@@ -62,7 +60,7 @@ namespace ProjectMvvm.ViewModels
             // After adding new entry to database close this page
              var ss = DependencyService.Get<DetailViewModel>() ?? (new DetailViewModel(_nav));
 
-           // await Application.Current.MainPage.Navigation.PopAsync() ;
+           
         });
      
 

@@ -2,6 +2,7 @@
 using ProjectMvvm.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,7 @@ namespace ProjectMvvm.Views
         }
 
         
-        private void Refresh_ListView()
-        {
-           
-          //  listview1.ItemsSource = viewModel.EmployeeList;
-        }
+       
         private void Edit_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -40,15 +37,9 @@ namespace ProjectMvvm.Views
             var vm = BindingContext as DetailViewModel;
             vm?.EditCommand.Execute(employee);
            
-            //Navigation.PushModalAsync(new NavigationPage(new EditEmployeePage(employee)));
+            
         }
-        /*protected override void OnAppearing()
-        {
-            base.OnAppearing();
-           
-            if (viewModel.EmployeeList.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
-        }*/
+      
        
         private void listview1_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -81,16 +72,37 @@ namespace ProjectMvvm.Views
 
         }
 
-        public void SearchEmpCommand ()
+        public void Search_Employee (object sender, TextChangedEventArgs e)
         {
+            if (MainSearchBar.Text!=string.Empty || MainSearchBar.Text!="")
+            {
             
+                try
+            {
+                viewModel.Employees.Clear();
+                IEnumerable<Employee> searchresult = viewModel.DataStore.GetAllAsync(x => x.Name.ToLower().Contains(MainSearchBar.Text.ToLower())).Result.ToList();
+                foreach (var item in searchresult)
+                {
+                    viewModel.Employees.Add(item);
 
+                }
+            }catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                
+                listview1.ItemsSource = viewModel.EmployeeList;
+            }
+               }
+            else
+            {
+                viewModel.ExecuteLoadEmployeeCommand();
+                BindingContext = viewModel;
+            }
         }
-        /* public void Search_Employee(object sender, EventArgs e)
-         {
-
-             viewModel.SearchEmpCommand.Execute(MainSearchBar.Text);
-         }*/
+      
 
     }
 }

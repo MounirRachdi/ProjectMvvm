@@ -16,7 +16,7 @@ namespace ProjectMvvm.Views
         LoginViewModel lgvm;
 		public LoginPage ()
 		{     
-              
+           
             this.BindingContext = lgvm= new LoginViewModel();
             lgvm.DisplayInvalidLoginPrompt += () => DisplayAlert("Error", "Invalid Login, try again", "OK");
             InitializeComponent();

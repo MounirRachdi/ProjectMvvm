@@ -21,8 +21,8 @@ namespace ProjectMvvm.ViewModels
             get { return id; }
             set
             {
-                id = value;
-                OnPropertyChanged();
+                SetProperty(ref id, value);
+                
             }
         }
         public string login;
@@ -31,8 +31,7 @@ namespace ProjectMvvm.ViewModels
             get { return login; }
             set
             {
-                login = value;
-                OnPropertyChanged();
+                SetProperty(ref login, value);
             }
         }
         public string password;
@@ -41,8 +40,7 @@ namespace ProjectMvvm.ViewModels
             get { return password; }
             set
             {
-                password = value;
-                OnPropertyChanged();
+                SetProperty(ref password, value);
             }
         }
         public string password2;
@@ -51,13 +49,19 @@ namespace ProjectMvvm.ViewModels
             get { return password2; }
             set
             {
-                password2 = value;
-                OnPropertyChanged();
+                SetProperty(ref password2, value);
             }
         }
-       
 
-
+        public string alerttext;
+        public string AlertText
+        {
+            get { return alerttext; }
+            set
+            {
+                SetProperty(ref alerttext, value);
+            }
+        }
         public RegistrationViewModel()
         {
 
@@ -74,7 +78,7 @@ namespace ProjectMvvm.ViewModels
         }
         public ICommand SaveCommand => new Command(async () =>
         {
-           user = new User
+            user = new User
             {
 
                 Login = Login,
@@ -82,11 +86,18 @@ namespace ProjectMvvm.ViewModels
 
 
             };
-
-           int res= await DataStore1.AddAsync(user);
+            if (password.Equals(password2))
+            {
+                int res = await DataStore1.AddAsync(user);
             Console.WriteLine("Add user = " + res);
-            if(res==1)
-            await Application.Current.MainPage.Navigation.PopAsync();
+            if (res == 1)
+                await Application.Current.MainPage.Navigation.PopAsync(); 
+               
+            }
+            else
+            {
+                AlertText = "Please confirm your password";
+           }
         });
           
     }

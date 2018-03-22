@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMvvm.Android", "Proj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMvvm.UWP", "ProjectMvvm\ProjectMvvm.UWP\ProjectMvvm.UWP.csproj", "{8E717548-5FD8-4EB0-B605-0EE4B0E57B08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectMvvm", "ProjectMvvm\ProjectMvvm\ProjectMvvm.csproj", "{D81B4DC7-20E3-4E9B-8B7B-CF9030A33D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectMvvm", "ProjectMvvm\ProjectMvvm\ProjectMvvm.csproj", "{D81B4DC7-20E3-4E9B-8B7B-CF9030A33D28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B2FDAC37-9C4A-4E78-9876-4AAB94E693A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,9 +85,28 @@ Global
 		{D81B4DC7-20E3-4E9B-8B7B-CF9030A33D28}.Release|x64.Build.0 = Release|Any CPU
 		{D81B4DC7-20E3-4E9B-8B7B-CF9030A33D28}.Release|x86.ActiveCfg = Release|Any CPU
 		{D81B4DC7-20E3-4E9B-8B7B-CF9030A33D28}.Release|x86.Build.0 = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|ARM.Build.0 = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|x64.Build.0 = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Debug|x86.Build.0 = Debug|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|ARM.ActiveCfg = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|ARM.Build.0 = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|x64.Build.0 = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|x86.ActiveCfg = Release|Any CPU
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{80C034BA-0AE6-4B92-BD7F-D92EAEEFAEB6} = {B2FDAC37-9C4A-4E78-9876-4AAB94E693A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32B66563-407E-49CA-8AE7-5D1DDF54C97E}

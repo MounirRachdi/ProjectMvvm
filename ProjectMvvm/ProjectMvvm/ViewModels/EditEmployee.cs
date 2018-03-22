@@ -14,7 +14,7 @@ namespace ProjectMvvm.ViewModels
 {
     public class EditEmployee: BaseViewModel
     {
-        //public List<Employee> employees { get; set; }
+        
         public EditEmployee(Employee emp, INavigation nav)
         {
            
@@ -37,8 +37,7 @@ namespace ProjectMvvm.ViewModels
             get { return id; }
             set
             {
-                id = value;
-                OnPropertyChanged();
+                SetProperty(ref id, value);
             }
         }
         public string name;
@@ -47,8 +46,7 @@ namespace ProjectMvvm.ViewModels
             get { return name; }
             set
             {
-                name = value;
-                OnPropertyChanged();
+                SetProperty(ref name, value);
             }
         }
         public string departement;
@@ -57,8 +55,7 @@ namespace ProjectMvvm.ViewModels
             get { return departement; }
             set
             {
-                departement = value;
-                OnPropertyChanged();
+                SetProperty(ref departement, value);
             }
         }
         
@@ -71,7 +68,7 @@ namespace ProjectMvvm.ViewModels
             emp.Department = Departement;
           int res=  await DataStore.UpdateAsync(emp);
            Console.Write("update result = " + res);
-           //await Application.Current.MainPage.Navigation.PopAsync();
+          
            var ss = DependencyService.Get<DetailViewModel>() ?? (new DetailViewModel(_nav));
            
         });

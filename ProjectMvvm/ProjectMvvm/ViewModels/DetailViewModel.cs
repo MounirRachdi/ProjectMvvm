@@ -30,27 +30,17 @@ namespace ProjectMvvm.ViewModels
             }
             set
             {
-                Employees = value;
-                OnPropertyChanged("EmployeeList");
+                //Employees = value;
+                //OnPropertyChanged("EmployeeList");
+                SetProperty(ref Employees, value);
             }
         }
-        private bool _isRefreshing = false;
-        public bool IsRefreshing
-        {
-            get { return _isRefreshing; }
-            set
-            {
-                _isRefreshing = value;
-                OnPropertyChanged(nameof(IsRefreshing));
-            }
-        }
+       
         public DetailViewModel(INavigation nav)
         {
 
-            if (String.IsNullOrWhiteSpace(searchvalue))
-            
-                { ExecuteLoadEmployeeCommand();
-                LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand()); }
+             ExecuteLoadEmployeeCommand();
+                LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand()); 
                 
             
             
@@ -64,21 +54,20 @@ namespace ProjectMvvm.ViewModels
 
         public DetailViewModel()
         {
-            if (String.IsNullOrWhiteSpace(searchvalue))
-            {
+          
                 ExecuteLoadEmployeeCommand();
                 LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            }
+            
             
         
         }
 
         async Task ExecuteLoadItemsCommand()
         {
-           /*if (IsBusy)
+           if (IsBusy)
                 return;
 
-            IsBusy = true;*/
+            IsBusy = true;
 
             try
             {
@@ -89,7 +78,7 @@ namespace ProjectMvvm.ViewModels
                     EmployeeList.Add(item);
                    
                 }
-                IsRefreshing = true;
+                
                 int nb = EmployeeList.Count;
                 Console.WriteLine("Employee Number=  " +nb);
             }
@@ -102,9 +91,12 @@ namespace ProjectMvvm.ViewModels
                 IsBusy = false;
             }
         }
-        async void ExecuteLoadEmployeeCommand()
+        public async void ExecuteLoadEmployeeCommand()
         {
-            
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
 
             try
             {
@@ -125,7 +117,7 @@ namespace ProjectMvvm.ViewModels
             finally
             {
                 IsBusy = false;
-                SearchValue = null;
+                
             }
         }
 
@@ -203,38 +195,51 @@ namespace ProjectMvvm.ViewModels
             { return searchvalue; }
             set
             {
-                searchvalue = value;
-                OnPropertyChanged();
+                SetProperty(ref searchvalue, value);
             }
         }
         
         public ICommand SearchEmpCommand => new Command(async () =>
         {
             var keyword = searchvalue;
-        
+            if (IsBusy)
+                return;
 
-        try
-        {
-               
-                    EmployeeList.Clear();
-            IEnumerable<Employee> searchresult = await DataStore.GetAllAsync(x=>x.Name.ToLower().Contains(SearchValue.ToLower()));
-            foreach (var item in searchresult)
+            IsBusy = true;
+            if (string.IsNullOrEmpty(searchvalue))
             {
+                EmployeeList.Clear();
+                var employees = await DataStore.GetAllAsync();
+                foreach (var item in employees)
+                {
                     EmployeeList.Add(item);
 
+                }
             }
-                   // Employees = new ObservableCollection<Employee>(searchresult);
-            }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine(ex);
+                try
+                {
+
+                    EmployeeList.Clear();
+                    IEnumerable<Employee> searchresult = await DataStore.GetAllAsync(x => x.Name.ToLower().Contains(SearchValue.ToLower()));
+                    foreach (var item in searchresult)
+                    {
+                        EmployeeList.Add(item);
+
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+
+                }
             }
-            finally
-            { 
-                IsBusy = false;
-               
-            }
-           
             
         });
         
